@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,8 +6,11 @@ import Doctors from './Doctors'
 import Politician from './Politician'
 import Counter from './Counter'
 import Batsman from './Batsman'
+import Users from './Users'
 
 
+const fetchPromise=fetch('https://jsonplaceholder.typicode.com/users')
+.then(res=>res.json())
 
 function App() {
   const [count, setCount] = useState(0)
@@ -43,6 +46,11 @@ function App() {
         </a>
       </div>
       <h3>Vite + React</h3>
+      <Suspense fallback={<p>Users is loading...</p>}>
+        <Users fetchPromise={fetchPromise}>
+
+        </Users>
+      </Suspense>
       <Batsman></Batsman>
 
       <Counter></Counter>
